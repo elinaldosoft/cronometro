@@ -79,16 +79,16 @@
 <div class="container">
     <!-- Example row of columns -->
     <div class="row" id="options_of_cronometro">
-        <div class="col-md-6">
-            <h3 class="page-header">CRÔNOMETRO CELULAR</h3>
+        <div class="col-md-12">
+            <h3 class="page-header text-center">CRÔNOMETRO CELULAR</h3>
             <h5 class="page-header text-center">QUAL A DURAÇÃO DESEJADA PARA A SUA CÉLULA?</h5>
-            <select class="form-control">
-                <option value="60">1 Hora</option>
-                <option value="50">50 min</option>
-                <option value="45">45 min</option>
+            <select class="form-control" id="select_time">
+                <option value="59">1 Hora</option>
+                <option value="49">50 min</option>
+                <option value="44">45 min</option>
             </select>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <h3 class="page-header">PROGRAMAÇÃO</h3>
             <form id="option_cronometro">
                 <ul>
@@ -112,10 +112,16 @@
 
     <div class="row" id="cronometro_runing" style="display: none;">
         <div class="col-md-12">
-            <h3 class="page-header">CRÔNOMETRO CELULAR</h3>
+            <h3 class="page-header text-center">CRÔNOMETRO CELULAR</h3>
+            <button id="back" type="button" class="btn btn-default" aria-label="Left Align">
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
+                    Voltar
+                </span>
+            </button>
+
             <div class="text-center">
                 <h4>TEMPO RESTANTE</h4>
-                <a style="width: 100%;" class="btn btn-warning btn-lg" href="javascript:void(0);" role="button">60:00</a>
+                <a style="width: 100%;" class="btn btn-warning btn-lg" href="javascript:void(0);" role="button" id="time_geral">00:00</a>
             </div>
 
             <hr>
@@ -128,7 +134,6 @@
                     <div class="text-center">OK</div>
                 </div>
             </div>
-
 
             <div id="dinamica" class="msn_cro">
                 <div style="width: 65%;" class="btn btn-dinamica btn-lg" href="javascript:void(0);" role="button">
@@ -184,9 +189,6 @@
                 </div>
             </div>
 
-
-
-
         </div>
     </div>
 
@@ -206,11 +208,51 @@
 <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
 
 <script type="text/javascript">
+    var minuto 	= new Number();
+    var segundo = new Number();
+
+    minuto = 59;
+    segundo = 60;
+
     $(document).ready(function() {
+
+        $("#select_time").change(function() {
+            minuto = $("#select_time option:selected" ).val();
+        });
+
+        cronometro = function(){
+            segundo--;
+
+            if(segundo == 0){
+                segundo = 59;
+                minuto--;
+                time = minuto+":"+segundo;
+            }else{
+                time = minuto+":"+segundo;
+            }
+
+            if(minuto > 0 || segundo > 0){
+                $("#time_geral").html(time);
+                setTimeout(cronometro, 1000);
+            }
+
+        }
+
+
+
         $("#start_cronometro").click(function(){
             $("#options_of_cronometro").hide();
             $("#cronometro_runing").show();
+            cronometro();
         });
+
+        $("#back").click(function(){
+           rsp = confirm("Você tem certeza que deseja voltar ? O Crômetro vai zerar");
+            if(rsp){
+                location.reload();
+            }
+        });
+
     });
 </script>
 
