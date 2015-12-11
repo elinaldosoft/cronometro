@@ -26,10 +26,15 @@
     <![endif]-->
 
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/2.4.2/math.min.js"></script>
 
     <style>
+        .disable {
+            background: #e0e0e0;
+        }
         .msn_cro {
             margin: 10px auto 10px;
+            display: none;
         }
 
         .btn-dinamica {
@@ -68,6 +73,18 @@
             border-color: #CD853F;
         }
 
+        .btn-louvo {
+            color: #fff;
+            background-color: #71cd05;
+            border-color: #7dcd05;
+        }
+
+        .btn-apelo {
+            color: #fff;
+            background-color: #cdba28;
+            border-color: #cdbb21;
+        }
+
 
     </style>
 
@@ -93,13 +110,15 @@
             <h3 class="page-header">PROGRAMAÇÃO</h3>
             <form id="option_cronometro">
                 <ul>
-                    <li><input class="crono_option" id="start" type="checkbox" disabled="disabled" checked value="1"> Abertura</li>
-                    <li><input class="crono_option" id="dinamic" type="checkbox" value="2"> Dinâmica</li>
-                    <li><input class="crono_option" id="word_main" type="checkbox" disabled="disabled" checked value="3"> Palavra Principal</li>
-                    <li><input class="crono_option" id="oration" type="checkbox" value="4"> Oração Principal</li>
-                    <li><input class="crono_option" id="offer" type="checkbox" value="5"> Oferta</li>
-                    <li><input class="crono_option" id="empty_chair" type="checkbox" value="6"> Cadeira Vazia</li>
-                    <li><input class="crono_option" id="end_offter" type="checkbox" disabled="disabled" checked value="7"> Oração Final</li>
+                    <li><input name="crono_option" class="crono_option" id="opt_01" type="checkbox" disabled="disabled" checked value="1"> Abertura</li>
+                    <li><input name="crono_option" class="crono_option" id="opt_02" type="checkbox" value="2"> Dinâmica</li>
+                    <li><input name="crono_option" class="crono_option" id="opt_03" type="checkbox" value="3"> Louvor</li>
+                    <li><input name="crono_option" class="crono_option" id="opt_04" type="checkbox" disabled="disabled" checked value="4"> Palavra Principal</li>
+                    <li><input name="crono_option" class="crono_option" id="opt_05" type="checkbox" disabled="disabled" checked value="5"> Apelo</li>
+                    <li><input name="crono_option" class="crono_option" id="opt_06" type="checkbox" value="6"> Oração Principal</li>
+                    <li><input name="crono_option" class="crono_option" id="opt_07" type="checkbox" value="7"> Oferta</li>
+                    <li><input name="crono_option" class="crono_option" id="opt_08" type="checkbox" value="8"> Cadeira Vazia</li>
+                    <li><input name="crono_option" class="crono_option" id="opt_09" type="checkbox" disabled="disabled" checked value="9"> Oração Final</li>
                 </ul>
             </form>
 
@@ -128,66 +147,85 @@
 
             <hr>
 
-            <div id="abertura" class="msn_cro">
+            <div id="tb_01" class="msn_cro">
                 <div style="width: 65%;" class="btn btn-primary btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left">ABERTURA</div>
                 </div>
                 <div style="width: 30%;" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
-                    <div class="text-center">OK</div>
+                    <div class="text-center" id="msn_01">OK</div>
                 </div>
             </div>
 
-            <div id="dinamica" class="msn_cro">
+            <div id="tb_02" class="msn_cro">
+                <div style="width: 65%;" class="btn btn-louvo btn-lg" href="javascript:void(0);" role="button">
+                    <div class="text-left">LOUVOR</div>
+                </div>
+                <div style="width: 30%;" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
+                    <div class="text-center" id="msn_02">OK</div>
+                </div>
+            </div>
+
+            <div id="tb_03" class="msn_cro">
                 <div style="width: 65%;" class="btn btn-dinamica btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left">DINÂMICA</div>
                 </div>
                 <div style="width: 30%;" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
-                    <div class="text-center">OK</div>
+                    <div class="text-center" id="msn_03">OK</div>
                 </div>
             </div>
 
-            <div id="palavra_principal" class="msn_cro">
+            <div id="tb_04" class="msn_cro">
                 <div style="width: 65%;" class="btn btn-palavra-principal btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left text-capitalize">PALAVRA PRINCIPAL</div>
                 </div>
                 <div style="width: 30%;" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
-                    <div class="text-center">OK</div>
+                    <div class="text-center" id="msn_04">OK</div>
                 </div>
             </div>
 
-            <div id="oracao_principal" class="msn_cro">
+
+            <div id="tb_05" class="msn_cro">
+                <div style="width: 65%;" class="btn btn-apelo btn-lg" href="javascript:void(0);" role="button">
+                    <div class="text-left text-capitalize">APELO</div>
+                </div>
+                <div style="width: 30%;" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
+                    <div class="text-center" id="msn_05">OK</div>
+                </div>
+            </div>
+
+            <div id="tb_06" class="msn_cro">
                 <div style="width: 65%;" class="btn btn-oracao-principal btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left text-capitalize">ORAÇÃO PRINCIPAL</div>
                 </div>
                 <div style="width: 30%;" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
-                    <div class="text-center">OK</div>
+                    <div class="text-center" id="msn_06">OK</div>
                 </div>
             </div>
 
-            <div id="oferta" class="msn_cro">
+            <div id="tb_07" class="msn_cro">
                 <div style="width: 65%;" class="btn btn-oferta btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left text-capitalize">OFERTA</div>
                 </div>
                 <div style="width: 30%;" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
-                    <div class="text-center">OK</div>
+                    <div class="text-center" id="msn_07">OK</div>
                 </div>
             </div>
 
-            <div id="cadeira_vazia" class="msn_cro">
+            <div id="tb_08" class="msn_cro">
                 <div style="width: 65%;" class="btn btn-cadeira-vazia btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left text-capitalize">CADEIRA VAZIA</div>
                 </div>
                 <div style="width: 30%;" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
-                    <div class="text-center">OK</div>
+                    <div class="text-center" id="msn_08">OK</div>
                 </div>
             </div>
 
-            <div id="oracao_final" class="msn_cro">
+            <div id="tb_09" class="msn_cro">
                 <div style="width: 65%;" class="btn btn-oracao-final btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left text-capitalize">ORAÇÃO FINAL</div>
                 </div>
                 <div style="width: 30%;" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
-                    <div class="text-center">04:00</div>
+                    <div class="text-center" id="msn_09">04:00</div>
                 </div>
             </div>
 
@@ -214,17 +252,57 @@
     var segundo = new Number();
 
     minuto = 59;
+    minuto_a = 59;
     segundo = 60;
+    segundo_a = 60;
 
     $(document).ready(function() {
 
+
+        var options = new Array();
+        var proporcion = {};
+        var run_time = new Array();
+        proporcion[1] = 2;
+        proporcion[2] = 7;
+        proporcion[3] = 10;
+        proporcion[4] = 18;
+        proporcion[5] = 3;
+        proporcion[6] = 5;
+        proporcion[7] = 6;
+        proporcion[8] = 5;
+        proporcion[9] = 4;
+
+        var tempo = {};
+
+        var media = 0;
+
         $("#select_time").change(function() {
-            minuto = $("#select_time option:selected" ).val();
+            minuto = $("#select_time option:selected").val();
         });
+
+
+        check_decrement = function(){
+            $.each(run_time, function(key, value) {
+                time_v = $("#msn_0"+value).text().split(":")[0];
+                console.log(time_v);
+//                segundo_a--;
+//                if(segundo_a == 0){
+//                    segundo_a = 59;
+//                    minuto_a--;
+//                    time = minuto_a+":"+segundo_a;
+//                }else{
+//                    time = minuto_a+":"+segundo_a;
+//                }
+//
+//                if(minuto_a > 0 || segundo_a > 0){
+//                    $("#msn_0"+value).html(time);
+//                    setTimeout(check_decrement, 1000);
+//                }
+            });
+        };
 
         cronometro = function(){
             segundo--;
-
             if(segundo == 0){
                 segundo = 59;
                 minuto--;
@@ -237,13 +315,71 @@
                 $("#time_geral").html(time);
                 setTimeout(cronometro, 1000);
             }
-
         }
 
         $("#start_cronometro").click(function(){
             $("#options_of_cronometro").hide();
             $("#cronometro_runing").show();
+            $('input[name="crono_option"]:checked').each(function() {
+                options.push(this.value);
+                media += proporcion[this.value];
+                $("#tb_0"+this.value).show();
+            });
+
+            t = parseInt(minuto) + 1;
+            menor = 0;
+            maximo = 0;
+            total = 0;
+            menor_sub = 0;
+            max_sub = 0;
+            max_replace = false;
+            min_replace = false;
+
+            for (var i = 0; i < options.length; i++) {
+                    percentual = math.sum((proporcion[options[i]]/media) * 100);
+                    percentual = percentual.toFixed(9)
+                    m = Math.round(math.sum((percentual/100) * t));
+                    if(menor == 0){
+                        menor = m;
+                        maximo = m;
+                    }
+
+
+                    if(m < menor){
+                        menor = m;
+                    }
+
+                    if(m > maximo){
+                        maximo = m;
+                    }
+
+                    total += m;
+                    tempo[options[i]] = m
+            };
+            div = t - total;
+            if(div > 0){
+                menor_sub = menor + div;
+            }else if(div < 0){
+                max_sub = maximo + (div);
+            }
+
+            $.each(tempo, function(key, value) {
+                if(tempo.hasOwnProperty(key)){
+                    run_time.push(key);
+                    if(menor == value && menor_sub > 0 && min_replace == false){
+                        min_replace = true;
+                        $("#msn_0"+key).html(menor_sub+":00");
+                    }else if(maximo == value && max_sub > 0 && max_replace == false){
+                        max_replace = true;
+                        $("#msn_0"+key).html(max_sub+":00");
+                    }else{
+                        $("#msn_0"+key).html(value+":00");
+                    }
+                }
+            });
+
             cronometro();
+            check_decrement();
         });
 
         $("#back").click(function(){
