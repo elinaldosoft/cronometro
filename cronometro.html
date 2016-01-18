@@ -29,8 +29,9 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/2.4.2/math.min.js"></script>
 
     <style>
-        * {
+        body {
             color: #5b5b5b;
+            background-image: url("fundo.jpg");
         }
         
         .msn_cro {
@@ -438,7 +439,7 @@
         });
 
         $("#back").click(function(){
-            rsp = confirm("Você tem certeza que deseja voltar ? O Crômetro vai zerar");
+            rsp = confirm("Você tem certeza que deseja voltar ? O Crômetro vai zerar", "Modified title");
             if(rsp){
                 location.reload();
             }
