@@ -85,6 +85,16 @@
             border-color: #cdbb21;
         }
 
+        .btn-disable
+        {
+            cursor: default;
+            pointer-events: none;
+
+            /*Button disabled - CSS color class*/
+            color: #AFAFAF;
+            background-color: #EAE3E3;
+
+        }
 
     </style>
 
@@ -258,7 +268,6 @@
 
     $(document).ready(function() {
 
-
         var options = new Array();
         var proporcion = {};
         var run_time = new Array();
@@ -272,34 +281,56 @@
         proporcion[8] = 5;
         proporcion[9] = 4;
 
-        var tempo = {};
+        var t_m = 0;
+        var t_s = 59;
+        var id_process = "";
+        var tb_process = "";
+        var process = false;
 
+        var tempo = {};
         var media = 0;
 
         $("#select_time").change(function() {
             minuto = $("#select_time option:selected").val();
         });
 
+        startCountdown = function(){
+            if(process){
+                t_s--;
+                if(t_s == 0){
+                    if(t_m <= 0 && t_s <= 0){
+                        process = false;
+                    }
+                    t_s = 59; t_m--;
+                    time = t_m+":"+t_s;
+                }else{
+                    time = t_m+":"+t_s;
+                    if(t_s < 10){
+                        time = t_m+":0"+t_s;
+                    }
+                }
+                if(process){
+                    $("#"+id_process).html(time)
+                }else {
+                    $("#"+id_process).html("OK!!")
+                    $("#"+tb_process+" div").removeClass();
+                    $("#"+tb_process+" div").addClass("btn btn-disable btn-lg");
+                }
 
-        check_decrement = function(){
-            $.each(run_time, function(key, value) {
-                time_v = $("#msn_0"+value).text().split(":")[0];
-                console.log(time_v);
-//                segundo_a--;
-//                if(segundo_a == 0){
-//                    segundo_a = 59;
-//                    minuto_a--;
-//                    time = minuto_a+":"+segundo_a;
-//                }else{
-//                    time = minuto_a+":"+segundo_a;
-//                }
-//
-//                if(minuto_a > 0 || segundo_a > 0){
-//                    $("#msn_0"+value).html(time);
-//                    setTimeout(check_decrement, 1000);
-//                }
-            });
-        };
+            }else{
+                process = true;
+                id_process = "msn_0"+Object.keys(tempo)[0];
+                tb_process = "tb_0"+Object.keys(tempo)[0];
+                t = tempo[Object.keys(tempo)[0]];
+                if(t > 1){
+                    t_m = t - 1;
+                }
+                delete tempo[Object.keys(tempo)[0]]
+            }
+
+            setTimeout('startCountdown()', 1000);
+            //setTimeout('startCountdown()', 100);
+        }
 
         cronometro = function(){
             segundo--;
@@ -379,7 +410,12 @@
             });
 
             cronometro();
-            check_decrement();
+            startCountdown();
+
+
+
+
+
         });
 
         $("#back").click(function(){
