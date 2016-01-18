@@ -29,60 +29,15 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/2.4.2/math.min.js"></script>
 
     <style>
-        .disable {
-            background: #e0e0e0;
-        }
         .msn_cro {
             margin: 10px auto 10px;
             display: none;
         }
 
-        .btn-dinamica {
-            color: #fff;
-            background-color: #A0522D;
-            border-color: #A0522D;
-        }
-
-        .btn-palavra-principal {
-            color: #fff;
-            background-color: #BA55D3;
-            border-color: #BA55D3;
-        }
-
-        .btn-oracao-principal {
-            color: #fff;
-            background-color: #FFA500;
-            border-color: #FFA500;
-        }
-
-        .btn-oferta {
-            color: #fff;
-            background-color: #FFD700;
-            border-color: #FFD700;
-        }
-
-        .btn-cadeira-vazia {
-            color: #fff;
-            background-color: #00BFFF;
-            border-color: #00BFFF;
-        }
-
-        .btn-oracao-final {
-            color: #fff;
-            background-color: #CD853F;
-            border-color: #CD853F;
-        }
-
-        .btn-louvo {
+        .btn-enable {
             color: #fff;
             background-color: #71cd05;
             border-color: #7dcd05;
-        }
-
-        .btn-apelo {
-            color: #fff;
-            background-color: #cdba28;
-            border-color: #cdbb21;
         }
 
         .btn-disable
@@ -144,11 +99,22 @@
     <div class="row" id="cronometro_runing" style="display: none;">
         <div class="col-md-12">
             <h3 class="page-header text-center">CRÔNOMETRO CELULAR</h3>
-            <button id="back" type="button" class="btn btn-default" aria-label="Left Align">
-                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
-                    Voltar
-                </span>
-            </button>
+            <div class="row text-center">
+                <div class="col-xs-12">
+                    <button id="back" type="button" class="btn btn-default" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-arrow-left" aria-hidden="true">
+                            Voltar
+                        </span>
+                    </button>
+
+                    <button id="pause" type="button" class="btn btn-default" aria-label="Left Align">
+                    <span id="pause_action" class="glyphicon glyphicon glyphicon-pause" aria-hidden="true">
+                        Pause
+                    </span>
+                    </button>
+                </div>
+            </div>
+
 
             <div class="text-center">
                 <h4>TEMPO RESTANTE</h4>
@@ -158,83 +124,83 @@
             <hr>
 
             <div id="tb_01" class="msn_cro">
-                <div style="width: 65%;" id="mm_01" class="btn btn-primary btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 65%;" id="mm_01" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left">ABERTURA</div>
                 </div>
-                <div style="width: 30%;" id="mn_01" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 30%;" id="mn_01" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-center" id="msn_01">OK</div>
                 </div>
             </div>
 
             <div id="tb_02" class="msn_cro">
-                <div style="width: 65%;" id="mm_02" class="btn btn-louvo btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 65%;" id="mm_02" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left">LOUVOR</div>
                 </div>
-                <div style="width: 30%;" id="mn_02" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 30%;" id="mn_02" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-center" id="msn_02">OK</div>
                 </div>
             </div>
 
             <div id="tb_03" class="msn_cro">
-                <div style="width: 65%;" id="mm_03" class="btn btn-dinamica btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 65%;" id="mm_03" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left">DINÂMICA</div>
                 </div>
-                <div style="width: 30%;" id="mn_03" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 30%;" id="mn_03" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-center" id="msn_03">OK</div>
                 </div>
             </div>
 
             <div id="tb_04" class="msn_cro">
-                <div style="width: 65%;" id="mm_04" class="btn btn-palavra-principal btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 65%;" id="mm_04" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left text-capitalize">PALAVRA PRINCIPAL</div>
                 </div>
-                <div style="width: 30%;" id="mn_04" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 30%;" id="mn_04" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-center" id="msn_04">OK</div>
                 </div>
             </div>
 
 
             <div id="tb_05" class="msn_cro">
-                <div style="width: 65%;" id="mm_05" class="btn btn-apelo btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 65%;" id="mm_05" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left text-capitalize">APELO</div>
                 </div>
-                <div style="width: 30%;" id="mn_05" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 30%;" id="mn_05" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-center" id="msn_05">OK</div>
                 </div>
             </div>
 
             <div id="tb_06" class="msn_cro">
-                <div style="width: 65%;" id="mm_06" class="btn btn-oracao-principal btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 65%;" id="mm_06" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left text-capitalize">ORAÇÃO PRINCIPAL</div>
                 </div>
-                <div style="width: 30%;" id="mn_06" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 30%;" id="mn_06" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-center" id="msn_06">OK</div>
                 </div>
             </div>
 
             <div id="tb_07" class="msn_cro">
-                <div style="width: 65%;" id="mm_07" class="btn btn-oferta btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 65%;" id="mm_07" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left text-capitalize">OFERTA</div>
                 </div>
-                <div style="width: 30%;" id="mn_07" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 30%;" id="mn_07" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-center" id="msn_07">OK</div>
                 </div>
             </div>
 
             <div id="tb_08" class="msn_cro">
-                <div style="width: 65%;" id="mm_08" class="btn btn-cadeira-vazia btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 65%;" id="mm_08" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left text-capitalize">CADEIRA VAZIA</div>
                 </div>
-                <div style="width: 30%;" id="mn_08" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 30%;" id="mn_08" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-center" id="msn_08">OK</div>
                 </div>
             </div>
 
             <div id="tb_09" class="msn_cro">
-                <div style="width: 65%;" id="mm_09" class="btn btn-oracao-final btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 65%;" id="mm_09" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left text-capitalize">ORAÇÃO FINAL</div>
                 </div>
-                <div style="width: 30%;" id="mn_09" class="btn btn-success btn-lg" href="javascript:void(0);" role="button">
+                <div style="width: 30%;" id="mn_09" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-center" id="msn_09">04:00</div>
                 </div>
             </div>
@@ -260,7 +226,7 @@
 <script type="text/javascript">
     var minuto  = new Number();
     var segundo = new Number();
-
+    var pause = false;
     minuto = 59;
     minuto_a = 59;
     segundo = 60;
@@ -296,63 +262,85 @@
         });
 
         startCountdown = function(){
-            if(process){
-                t_s--;
-                if(t_s == 0){
-                    if(t_m <= 0 && t_s <= 0){
-                        process = false;
+            if(pause == false) {
+                if (process) {
+                    t_s--;
+                    if (t_s == 0) {
+                        if (t_m <= 0 && t_s <= 0) {
+                            process = false;
+                        }
+                        t_s = 59;
+                        t_m--;
+                        time = t_m + ":" + t_s;
+                    } else {
+                        time = t_m + ":" + t_s;
+                        if (t_s < 10) {
+                            time = t_m + ":0" + t_s;
+                        }
                     }
-                    t_s = 59; t_m--;
-                    time = t_m+":"+t_s;
-                }else{
-                    time = t_m+":"+t_s;
-                    if(t_s < 10){
-                        time = t_m+":0"+t_s;
+
+                    if(t_m == 0 && t_s < 11){
+                        $("#mm_0" + id_prs_c).removeClass();
+                        $("#mn_0" + id_prs_c).removeClass();
+                        $("#mm_0" + id_prs_c).addClass("btn btn-danger btn-lg");
+                        $("#mn_0" + id_prs_c).addClass("btn btn-danger btn-lg");
                     }
-                }
-                if(process){
-                    $("#"+id_process).html(time)
-                }else {
-                    $("#"+id_process).html("OK!!")
-                    $("#mm_0"+id_prs_c).removeClass();
-                    $("#mn_0"+id_prs_c).removeClass();
 
-                    $("#mm_0"+id_prs_c).addClass("btn btn-disable btn-lg");
-                    $("#mn_0"+id_prs_c).addClass("btn btn-disable btn-lg");
+                    if (process) {
+                        $("#" + id_process).html(time)
+                    } else {
+                        $("#" + id_process).html("OK!!")
+                        $("#mm_0" + id_prs_c).removeClass();
+                        $("#mn_0" + id_prs_c).removeClass();
+
+                        $("#mm_0" + id_prs_c).addClass("btn btn-disable btn-lg");
+                        $("#mn_0" + id_prs_c).addClass("btn btn-disable btn-lg");
+                    }
+
+                } else {
+                    process = true;
+                    id_process = "msn_0" + Object.keys(tempo)[0];
+                    tb_process = "tb_0" + Object.keys(tempo)[0];
+                    id_prs_c = Object.keys(tempo)[0];
+                    t = tempo[Object.keys(tempo)[0]];
+                    if (t > 1) {
+                        t_m = t - 1;
+                    }
+
+                    $("#mm_0" + id_prs_c).removeClass();
+                    $("#mn_0" + id_prs_c).removeClass();
+
+                    $("#mm_0" + id_prs_c).addClass("btn btn-enable btn-lg");
+                    $("#mn_0" + id_prs_c).addClass("btn btn-enable btn-lg");
+
+                    delete tempo[Object.keys(tempo)[0]]
                 }
 
-            }else{
-                process = true;
-                id_process = "msn_0"+Object.keys(tempo)[0];
-                tb_process = "tb_0"+Object.keys(tempo)[0];
-                id_prs_c = Object.keys(tempo)[0];
-                t = tempo[Object.keys(tempo)[0]];
-                if(t > 1){
-                    t_m = t - 1;
-                }
-                delete tempo[Object.keys(tempo)[0]]
             }
-
             setTimeout('startCountdown()', 1000);
             //setTimeout('startCountdown()', 100);
         }
 
         cronometro = function(){
-            segundo--;
-            if(segundo == 0){
-                segundo = 59;
-                minuto--;
-                time = minuto+":"+segundo;
-            }else{
-                if(segundo < 10){
-                    time = minuto+":0"+segundo;
-                }else{
-                    time = minuto+":"+segundo;
+            if(pause == false) {
+                segundo--;
+                if (segundo == 0) {
+                    segundo = 59;
+                    minuto--;
+                    time = minuto + ":" + segundo;
+                } else {
+                    if (segundo < 10) {
+                        time = minuto + ":0" + segundo;
+                    } else {
+                        time = minuto + ":" + segundo;
+                    }
                 }
-            }
 
-            if(minuto > 0 || segundo > 0){
-                $("#time_geral").html(time);
+                if (minuto > 0 || segundo > 0) {
+                    $("#time_geral").html(time);
+                    setTimeout(cronometro, 1000);
+                }
+            }else{
                 setTimeout(cronometro, 1000);
             }
         }
@@ -433,6 +421,22 @@
                 location.reload();
             }
         });
+
+        $("#pause").click(function(){
+            if(pause == false){
+                pause = true;
+                $("#pause_action").removeClass();
+                $("#pause_action").addClass("glyphicon glyphicon glyphicon glyphicon-play");
+                $("#pause_action").html(" Continuar");
+                $("#pause").addClass("btn-danger");
+            }else{
+                pause = false;
+                $("#pause_action").removeClass();
+                $("#pause_action").addClass("glyphicon glyphicon glyphicon-pause");
+                $("#pause_action").html("Pause");
+                $("#pause").removeClass("btn-danger");
+            }
+        })
 
     });
 </script>
