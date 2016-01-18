@@ -339,7 +339,11 @@
                 minuto--;
                 time = minuto+":"+segundo;
             }else{
-                time = minuto+":"+segundo;
+                if(segundo < 10){
+                    time = minuto+":0"+segundo;
+                }else{
+                    time = minuto+":"+segundo;
+                }
             }
 
             if(minuto > 0 || segundo > 0){
