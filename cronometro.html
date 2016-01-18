@@ -57,6 +57,7 @@
         .ul-options {
             list-style-type: none;
             font-size: 20px;
+            margin-left: -30px;
         }
 
         .ul-options li {
@@ -80,7 +81,7 @@
     <div class="row" id="options_of_cronometro">
         <div class="col-md-12">
             <h3 class="page-header text-center">CRÔNOMETRO CELULAR</h3>
-            <h5 class="page-header text-center">QUAL A DURAÇÃO DESEJADA PARA A SUA CÉLULA?</h5>
+            <h3 class="page-header text-center">QUAL A DURAÇÃO DESEJADA PARA A SUA CÉLULA?</h3>
             <select class="form-control" id="select_time">
                 <option value="59">1 Hora</option>
                 <option value="49">50 min</option>
@@ -90,11 +91,11 @@
         </div>
         <div class="col-md-12">
             <h3 class="page-header text-center">PROGRAMAÇÃO</h3>
-            <form id="option_cronometro">
-                <ul class="ul-options">
+            <form id="option_cronometro" class="text-left">
+                <ul class="ul-options text-left">
                     <li><input name="crono_option" class="crono_option" id="opt_01" type="checkbox" disabled="disabled" checked value="1"> &nbsp;&nbsp;&nbsp;&nbsp;Abertura</li>
-                    <li><input name="crono_option" class="crono_option" id="opt_02" type="checkbox" value="2"> &nbsp;&nbsp;&nbsp;&nbsp;Dinâmica</li>
-                    <li><input name="crono_option" class="crono_option" id="opt_03" type="checkbox" value="3"> &nbsp;&nbsp;&nbsp;&nbsp;Louvor</li>
+                    <li><input name="crono_option" class="crono_option" id="opt_02" type="checkbox" value="3"> &nbsp;&nbsp;&nbsp;&nbsp;Dinâmica</li>
+                    <li><input name="crono_option" class="crono_option" id="opt_03" type="checkbox" value="2"> &nbsp;&nbsp;&nbsp;&nbsp;Louvor</li>
                     <li><input name="crono_option" class="crono_option" id="opt_04" type="checkbox" disabled="disabled" checked value="4"> &nbsp;&nbsp;&nbsp;&nbsp;Palavra Principal</li>
                     <li><input name="crono_option" class="crono_option" id="opt_05" type="checkbox" value="5"> &nbsp;&nbsp;&nbsp;&nbsp;Apelo</li>
                     <li><input name="crono_option" class="crono_option" id="opt_06" type="checkbox" value="6"> &nbsp;&nbsp;&nbsp;&nbsp;Oração Principal</li>
@@ -149,14 +150,7 @@
                 </div>
             </div>
 
-            <div id="tb_02" class="msn_cro">
-                <div style="width: 65%;" id="mm_02" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
-                    <div class="text-left">LOUVOR</div>
-                </div>
-                <div style="width: 30%;" id="mn_02" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
-                    <div class="text-center" id="msn_02">OK</div>
-                </div>
-            </div>
+
 
             <div id="tb_03" class="msn_cro">
                 <div style="width: 65%;" id="mm_03" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
@@ -164,6 +158,15 @@
                 </div>
                 <div style="width: 30%;" id="mn_03" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-center" id="msn_03">OK</div>
+                </div>
+            </div>
+
+            <div id="tb_02" class="msn_cro">
+                <div style="width: 65%;" id="mm_02" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
+                    <div class="text-left">LOUVOR</div>
+                </div>
+                <div style="width: 30%;" id="mn_02" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
+                    <div class="text-center" id="msn_02">OK</div>
                 </div>
             </div>
 
@@ -370,6 +373,8 @@
                 media += proporcion[this.value];
                 $("#tb_0"+this.value).show();
             });
+
+            console.log(options);
 
             t = parseInt(minuto) + 1;
             menor = 0;
