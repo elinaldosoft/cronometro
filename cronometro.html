@@ -100,8 +100,8 @@
             <form id="option_cronometro" class="text-left">
                 <ul class="ul-options text-left">
                     <li><input name="crono_option" class="crono_option" id="opt_01" type="checkbox" disabled="disabled" checked value="1"> &nbsp;&nbsp;&nbsp;&nbsp;Abertura</li>
-                    <li><input name="crono_option" class="crono_option" id="opt_02" type="checkbox" value="3"> &nbsp;&nbsp;&nbsp;&nbsp;Dinâmica</li>
-                    <li><input name="crono_option" class="crono_option" id="opt_03" type="checkbox" value="2"> &nbsp;&nbsp;&nbsp;&nbsp;Louvor</li>
+                    <li><input name="crono_option" class="crono_option" id="opt_02" type="checkbox" value="2"> &nbsp;&nbsp;&nbsp;&nbsp;Dinâmica</li>
+                    <li><input name="crono_option" class="crono_option" id="opt_03" type="checkbox" value="3"> &nbsp;&nbsp;&nbsp;&nbsp;Louvor</li>
                     <li><input name="crono_option" class="crono_option" id="opt_04" type="checkbox" disabled="disabled" checked value="4"> &nbsp;&nbsp;&nbsp;&nbsp;Palavra Principal</li>
                     <li><input name="crono_option" class="crono_option" id="opt_05" type="checkbox" value="5"> &nbsp;&nbsp;&nbsp;&nbsp;Apelo</li>
                     <li><input name="crono_option" class="crono_option" id="opt_06" type="checkbox" value="6"> &nbsp;&nbsp;&nbsp;&nbsp;Oração Principal</li>
@@ -168,7 +168,7 @@
 
 
 
-            <div id="tb_03" class="msn_cro">
+            <div id="tb_02" class="msn_cro">
                 <div style="width: 65%;" id="mm_03" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left">DINÂMICA</div>
                 </div>
@@ -177,7 +177,7 @@
                 </div>
             </div>
 
-            <div id="tb_02" class="msn_cro">
+            <div id="tb_03" class="msn_cro">
                 <div style="width: 65%;" id="mm_02" class="btn btn-disable btn-lg" href="javascript:void(0);" role="button">
                     <div class="text-left">LOUVOR</div>
                 </div>
@@ -246,7 +246,7 @@
 
     <hr>
     <footer>
-        <p>&copy; Vision G12 - 2014</p>
+        <p></p>
     </footer>
 </div> <!-- /container -->
 
@@ -350,6 +350,7 @@
                     $("#mn_0" + id_prs_c).addClass("btn btn-enable btn-lg");
 
                     delete tempo[Object.keys(tempo)[0]]
+                    segundo = 59;
                 }
 
             }
