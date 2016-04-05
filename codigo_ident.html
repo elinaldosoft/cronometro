@@ -239,6 +239,10 @@
                 </div>
             </div>
 
+            <audio class="my_audio" controls preload="none" style="display: none;">
+                <source src="beep-09.mp3" type="audio/mpeg">
+            </audio>
+
         </div>
     </div>
 
@@ -267,6 +271,8 @@
     segundo_a = 60;
 
     $(document).ready(function() {
+
+        $(".my_audio").trigger('load');
 
         var options = new Array();
         var proporcion = {};
@@ -323,12 +329,14 @@
                     if (process) {
                         $("#" + id_process).html(time)
                     } else {
-                        $("#" + id_process).html("OK!!")
+                        $("#" + id_process).html("OK!!");
                         $("#mm_0" + id_prs_c).removeClass();
                         $("#mn_0" + id_prs_c).removeClass();
 
                         $("#mm_0" + id_prs_c).addClass("btn btn-disable btn-lg");
                         $("#mn_0" + id_prs_c).addClass("btn btn-disable btn-lg");
+                        $(".my_audio").trigger('play');
+                        navigator.vibrate([500, 500, 500]);
                     }
 
                 } else {
