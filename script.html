@@ -1,0 +1,221 @@
+<script type="text/javascript">
+    var minuto  = new Number();
+    var segundo = new Number();
+    var pause = false;
+    minuto = 59;
+    minuto_a = 59;
+    segundo = 60;
+    segundo_a = 60;
+
+    $(document).ready(function() {
+
+        $(".my_audio").trigger('load');
+
+        var options = new Array();
+        var proporcion = {};
+        var run_time = new Array();
+        proporcion[1] = 2;
+        proporcion[2] = 7;
+        proporcion[3] = 10;
+        proporcion[4] = 18;
+        proporcion[5] = 3;
+        proporcion[6] = 5;
+        proporcion[7] = 6;
+        proporcion[8] = 5;
+        proporcion[9] = 4;
+
+        var t_m = 0;
+        var t_s = 59;
+        var id_process = "";
+        var tb_process = "";
+        var process = false;
+        var id_prs_c;
+
+        var tempo = {};
+        var media = 0;
+
+        $("#select_time").change(function() {
+            minuto = $("#select_time option:selected").val();
+        });
+
+        startCountdown = function(){
+            if(pause == false) {
+                if (process) {
+                    t_s--;
+                    if (t_s == 0) {
+                        if (t_m <= 0 && t_s <= 0) {
+                            process = false;
+                        }
+                        t_s = 59;
+                        t_m--;
+                        time = t_m + ":" + t_s;
+                    } else {
+                        time = t_m + ":" + t_s;
+                        if (t_s < 10) {
+                            time = t_m + ":0" + t_s;
+                        }
+                    }
+
+                    if(t_m == 0 && t_s < 11){
+                        $("#mm_0" + id_prs_c).removeClass();
+                        $("#mn_0" + id_prs_c).removeClass();
+                        $("#mm_0" + id_prs_c).addClass("btn btn-danger btn-lg");
+                        $("#mn_0" + id_prs_c).addClass("btn btn-danger btn-lg");
+                    }
+
+                    if (process) {
+                        $("#" + id_process).html(time)
+                    } else {
+                        $("#" + id_process).html("OK!!");
+                        $("#mm_0" + id_prs_c).removeClass();
+                        $("#mn_0" + id_prs_c).removeClass();
+
+                        $("#mm_0" + id_prs_c).addClass("btn btn-disable btn-lg");
+                        $("#mn_0" + id_prs_c).addClass("btn btn-disable btn-lg");
+                        $(".my_audio").trigger('play');
+                        navigator.vibrate([500, 500, 500]);
+                    }
+
+                } else {
+                    process = true;
+                    id_process = "msn_0" + Object.keys(tempo)[0];
+                    tb_process = "tb_0" + Object.keys(tempo)[0];
+                    id_prs_c = Object.keys(tempo)[0];
+                    t = tempo[Object.keys(tempo)[0]];
+                    if (t > 1) {
+                        t_m = t - 1;
+                    }
+
+                    $("#mm_0" + id_prs_c).removeClass();
+                    $("#mn_0" + id_prs_c).removeClass();
+
+                    $("#mm_0" + id_prs_c).addClass("btn btn-enable btn-lg");
+                    $("#mn_0" + id_prs_c).addClass("btn btn-enable btn-lg");
+
+                    delete tempo[Object.keys(tempo)[0]]
+                    segundo = 59;
+                }
+
+            }
+            setTimeout('startCountdown()', 1000);
+        }
+
+        cronometro = function(){
+            if(pause == false) {
+                segundo--;
+                if (segundo == 0) {
+                    segundo = 59;
+                    minuto--;
+                    time = minuto + ":" + segundo;
+                } else {
+                    if (segundo < 10) {
+                        time = minuto + ":0" + segundo;
+                    } else {
+                        time = minuto + ":" + segundo;
+                    }
+                }
+
+                if (minuto > 0 || segundo > 0) {
+                    $("#time_geral").html(time);
+                    setTimeout(cronometro, 1000);
+                }
+            }else{
+                setTimeout(cronometro, 1000);
+            }
+        }
+
+        $("#start_cronometro").click(function(){
+            $("#options_of_cronometro").hide();
+            $("#cronometro_runing").show();
+            $('input[name="crono_option"]:checked').each(function() {
+                options.push(this.value);
+                media += proporcion[this.value];
+                $("#tb_0"+this.value).show();
+            });
+
+            t = parseInt(minuto) + 1;
+            menor = 0;
+            maximo = 0;
+            total = 0;
+            menor_sub = 0;
+            max_sub = 0;
+            max_replace = false;
+            min_replace = false;
+
+            for (var i = 0; i < options.length; i++) {
+                percentual = math.sum((proporcion[options[i]]/media) * 100);
+                percentual = percentual.toFixed(9)
+                m = Math.round(math.sum((percentual/100) * t));
+                if(menor == 0){
+                    menor = m;
+                    maximo = m;
+                }
+
+
+                if(m < menor){
+                    menor = m;
+                }
+
+                if(m > maximo){
+                    maximo = m;
+                }
+
+                total += m;
+                tempo[options[i]] = m
+            };
+            div = t - total;
+            if(div > 0){
+                menor_sub = menor + div;
+            }else if(div < 0){
+                max_sub = maximo + (div);
+            }
+
+            $.each(tempo, function(key, value) {
+                if(tempo.hasOwnProperty(key)){
+                    run_time.push(key);
+                    if(menor == value && menor_sub > 0 && min_replace == false){
+                        min_replace = true;
+                        $("#msn_0"+key).html(menor_sub+":00");
+                    }else if(maximo == value && max_sub > 0 && max_replace == false){
+                        max_replace = true;
+                        $("#msn_0"+key).html(max_sub+":00");
+                    }else{
+                        $("#msn_0"+key).html(value+":00");
+                    }
+                }
+            });
+
+            cronometro();
+            startCountdown();
+        });
+
+        $("#back").click(function(){
+            $("#msn_alert").show();
+        });
+
+        $("#yes").click(function(){
+            location.reload();
+        });
+
+        $("#not").click(function(){
+            $("#msn_alert").hide();
+        });
+
+        $("#pause").click(function(){
+            if(pause == false){
+                pause = true;
+                $("#pause_action").removeClass();
+                $("#pause_action").addClass("glyphicon glyphicon glyphicon glyphicon-play");
+                $("#pause_action").html("Continuar");
+                $("#pause").addClass("btn-danger");
+            }else{
+                pause = false;
+                $("#pause_action").removeClass();
+                $("#pause_action").addClass("glyphicon glyphicon glyphicon-pause");
+                $("#pause_action").html("Pause");
+                $("#pause").removeClass("btn-danger");
+            }
+        })
+
+    });
+</script>
