@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name=description content>
+    <meta name=author content>
+    <link rel=icon href=favicon.ico>
+    <title>Cronomêtro Visão Celular</title>
+    <link href=dist/css/bootstrap.min.css rel=stylesheet>
+    <!--[if lt IE 9]><script src=assets/js/ie8-responsive-file-warning.js></script><![endif]-->
+    <script src=assets/js/ie-emulation-modes-warning.js></script>
+    <!--[if lt IE 9]>
+    <script src=https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js></script>
+    <script src=https://oss.maxcdn.com/respond/1.4.2/respond.min.js></script>
+    <![endif]-->
+    <script src=http://code.jquery.com/jquery-2.1.4.min.js></script>
+    <script src=http://cdnjs.cloudflare.com/ajax/libs/mathjs/2.4.2/math.min.js></script>
+    <style>body{color:#5b5b5b;background-image:url("fundo.png");background-repeat:repeat-y}.msn_cro{margin:10px auto 10px;display:none}.btn-enable{color:#fff;background-color:#71cd05;border-color:#7dcd05}.btn-disable{cursor:default;pointer-events:none;color:#afafaf;background-color:#eae3e3}.ul-options{list-style-type:none;font-size:20px;margin-left:-30px}.ul-options li{margin:30px auto 30px}.ul-options li input{transform:scale(3.0);-webkit-transform:scale(3.0)}#time_geral{font-size:30px}</style>
+</head>
+<body>
+<div class=container>
+    <div class=row id=options_of_cronometro>
+        <div class=col-md-12>
+            <h3 class="page-header text-center">CRÔNOMETRO CELULAR</h3>
+            <h3 class="page-header text-center">QUAL A DURAÇÃO DESEJADA PARA A SUA CÉLULA?</h3>
+            <select class=form-control id=select_time>
+                <option value=59>1 Hora</option>
+                <option value=49>50 min</option>
+                <option value=44>45 min</option>
+                <option value=29>30 min</option>
+            </select>
+        </div>
+        <div class=col-md-12>
+            <h3 class="page-header text-center">PROGRAMAÇÃO</h3>
+            <form id=option_cronometro class=text-left>
+                <ul class="ul-options text-left">
+                    <li><input name=crono_option class=crono_option id=opt_01 type=checkbox disabled=disabled checked value=1> &nbsp;&nbsp;&nbsp;&nbsp;Abertura</li>
+                    <li><input name=crono_option class=crono_option id=opt_02 type=checkbox value=2> &nbsp;&nbsp;&nbsp;&nbsp;Dinâmica</li>
+                    <li><input name=crono_option class=crono_option id=opt_03 type=checkbox value=3> &nbsp;&nbsp;&nbsp;&nbsp;Louvor</li>
+                    <li><input name=crono_option class=crono_option id=opt_04 type=checkbox disabled=disabled checked value=4> &nbsp;&nbsp;&nbsp;&nbsp;Palavra Principal</li>
+                    <li><input name=crono_option class=crono_option id=opt_05 type=checkbox value=5> &nbsp;&nbsp;&nbsp;&nbsp;Apelo</li>
+                    <li><input name=crono_option class=crono_option id=opt_06 type=checkbox value=6> &nbsp;&nbsp;&nbsp;&nbsp;Oração Principal</li>
+                    <li><input name=crono_option class=crono_option id=opt_07 type=checkbox value=7> &nbsp;&nbsp;&nbsp;&nbsp;Oferta</li>
+                    <li><input name=crono_option class=crono_option id=opt_08 type=checkbox value=8> &nbsp;&nbsp;&nbsp;&nbsp;Cadeira Vazia</li>
+                    <li><input name=crono_option class=crono_option id=opt_09 type=checkbox disabled=disabled checked value=9> &nbsp;&nbsp;&nbsp;&nbsp;Oração Final</li>
+                </ul>
+            </form>
+            <div class=text-center>
+                <a class="btn btn-success btn-lg" href=javascript:void(0) id=start_cronometro role=button><i class="glyphicon glyphicon-play"></i>&nbsp;Iniciar</a>
+            </div>
+        </div>
+    </div>
+    <div class=row id=cronometro_runing style=display:none>
+        <div class=col-md-12>
+            <div id=msn_alert class="alert alert-info" role=alert style=display:none>
+                <div class=text-center>
+                    <span class=sr-only>Alerta Nucleo12</span>
+                    <p>Você tem certeza que deseja voltar ?</p>
+                    <p>O Crômetro vai zerar</p>
+                    <a href=javascript:void(0) id=yes class="btn btn-primary btn-lg">SIM</a> <a href=javascript:void(0) id=not class="btn btn-primary btn-lg">Não</a>
+                </div>
+            </div>
+            <h3 class="page-header text-center">CRÔNOMETRO CELULAR</h3>
+            <div class="row text-center">
+                <div class=col-xs-12>
+                    <button id=back type=button class="btn btn-default btn-lg" aria-label="Left Align">
+<span class="glyphicon glyphicon-arrow-left" aria-hidden=true>
+Voltar
+</span>
+                    </button>
+                    <button id=pause type=button class="btn btn-default btn-lg" aria-label="Left Align">
+<span id=pause_action class="glyphicon glyphicon glyphicon-pause" aria-hidden=true>
+Pause
+</span>
+                    </button>
+                </div>
+            </div>
+            <div class=text-center>
+                <h4>TEMPO RESTANTE</h4>
+                <a style=width:100% class="btn btn-warning btn-lg" href=javascript:void(0) role=button id=time_geral>00:00</a>
+            </div>
+            <hr>
+            <div id=tb_01 class=msn_cro>
+                <div style=width:65% id=mm_01 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class=text-left>ABERTURA</div>
+                </div>
+                <div style=width:30% id=mn_01 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class=text-center id=msn_01>OK</div>
+                </div>
+            </div>
+            <div id=tb_02 class=msn_cro>
+                <div style=width:65% id=mm_02 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class=text-left>DINÂMICA</div>
+                </div>
+                <div style=width:30% id=mn_02 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class=text-center id=msn_02>OK</div>
+                </div>
+            </div>
+            <div id=tb_03 class=msn_cro>
+                <div style=width:65% id=mm_03 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class=text-left>LOUVOR</div>
+                </div>
+                <div style=width:30% id=mn_03 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class=text-center id=msn_03>OK</div>
+                </div>
+            </div>
+            <div id=tb_04 class=msn_cro>
+                <div style=width:65% id=mm_04 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class="text-left text-capitalize" style=font-size:14px>PALAVRA PRINCIPAL</div>
+                </div>
+                <div style=width:30% id=mn_04 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class=text-center id=msn_04>OK</div>
+                </div>
+            </div>
+            <div id=tb_05 class=msn_cro>
+                <div style=width:65% id=mm_05 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class="text-left text-capitalize">APELO</div>
+                </div>
+                <div style=width:30% id=mn_05 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class=text-center id=msn_05>OK</div>
+                </div>
+            </div>
+            <div id=tb_06 class=msn_cro>
+                <div style=width:65% id=mm_06 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class="text-left text-capitalize">ORAÇÃO PRINCIPAL</div>
+                </div>
+                <div style=width:30% id=mn_06 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class=text-center id=msn_06>OK</div>
+                </div>
+            </div>
+            <div id=tb_07 class=msn_cro>
+                <div style=width:65% id=mm_07 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class="text-left text-capitalize">OFERTA</div>
+                </div>
+                <div style=width:30% id=mn_07 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class=text-center id=msn_07>OK</div>
+                </div>
+            </div>
+            <div id=tb_08 class=msn_cro>
+                <div style=width:65% id=mm_08 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class="text-left text-capitalize">CADEIRA VAZIA</div>
+                </div>
+                <div style=width:30% id=mn_08 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class=text-center id=msn_08>OK</div>
+                </div>
+            </div>
+            <div id=tb_09 class=msn_cro>
+                <div style=width:65% id=mm_09 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class="text-left text-capitalize">ORAÇÃO FINAL</div>
+                </div>
+                <div style=width:30% id=mn_09 class="btn btn-disable btn-lg" href=javascript:void(0); role=button>
+                    <div class=text-center id=msn_09>04:00</div>
+                </div>
+            </div>
+            <audio class=my_audio controls preload=none style=display:none>
+                <source src=beep-09.mp3 type=audio/mpeg>
+            </audio>
+        </div>
+    </div>
+    <hr>
+    <footer>
+        <p></p>
+    </footer>
+</div>
+<script type=text/javascript>var minuto=new Number(),segundo=new Number(),pause=process=false,minuto=minuto_a=59,segundo=segundo_a=60,options=new Array(),proporcion=tempo={},run_time=new Array(),t_m=media=0,t_s=59,id_process=tb_process="",id_prs_c;proporcion={1:2,2:7,3:10,4:18,5:3,6:5,7:6,8:5,9:4};$("#select_time").change(function(){minuto=$("#select_time option:selected").val()});startCountdown=function(){if(pause==false){if(process){t_s--;if(t_s==0){if(t_m<=0&&t_s<=0){process=false}t_s=59;t_m--;time=t_m+":"+t_s}else{time=t_m+":"+t_s;if(t_s<10){time=t_m+":0"+t_s}}if(t_m==0&&t_s<11){$("#mm_0"+id_prs_c).removeClass();$("#mn_0"+id_prs_c).removeClass();$("#mm_0"+id_prs_c).addClass("btn btn-danger btn-lg");$("#mn_0"+id_prs_c).addClass("btn btn-danger btn-lg")}if(process){$("#"+id_process).html(time)}else{$("#"+id_process).html("OK!!");$("#mm_0"+id_prs_c).removeClass();$("#mn_0"+id_prs_c).removeClass();$("#mm_0"+id_prs_c).addClass("btn btn-disable btn-lg");$("#mn_0"+id_prs_c).addClass("btn btn-disable btn-lg");try{$(".my_audio").trigger("play")}catch(a){console.log("Browser não tem suporte a audio")}try{navigator.vibrate([500,500,500,500,500,500])}catch(a){console.log("Browser não tem suporte a vibrate")}}}else{process=true;id_process="msn_0"+Object.keys(tempo)[0];tb_process="tb_0"+Object.keys(tempo)[0];id_prs_c=Object.keys(tempo)[0];t=tempo[Object.keys(tempo)[0]];if(t>1){t_m=t-1}$("#mm_0"+id_prs_c).removeClass();$("#mn_0"+id_prs_c).removeClass();$("#mm_0"+id_prs_c).addClass("btn btn-enable btn-lg");$("#mn_0"+id_prs_c).addClass("btn btn-enable btn-lg");delete tempo[Object.keys(tempo)[0]];segundo=59}}setTimeout("startCountdown()",1000)};cronometro=function(){if(pause==false){segundo--;if(segundo==0){segundo=59;minuto--;time=minuto+":"+segundo}else{if(segundo<10){time=minuto+":0"+segundo}else{time=minuto+":"+segundo}}if(minuto>0||segundo>0){$("#time_geral").html(time);setTimeout(cronometro,1000)}}else{setTimeout(cronometro,1000)}};$("#start_cronometro").click(function(){$("#options_of_cronometro").hide();$("#cronometro_runing").show();$('input[name="crono_option"]:checked').each(function(){options.push(this.value);media+=proporcion[this.value];$("#tb_0"+this.value).show()});t=parseInt(minuto)+1;menor=0;maximo=0;total=0;menor_sub=0;max_sub=0;max_replace=false;min_replace=false;for(var a=0;a<options.length;a++){percentual=math.sum((proporcion[options[a]]/media)*100);percentual=percentual.toFixed(9);m=Math.round(math.sum((percentual/100)*t));if(menor==0){menor=m;maximo=m}if(m<menor){menor=m}if(m>maximo){maximo=m}total+=m;tempo[options[a]]=m}div=t-total;if(div>0){menor_sub=menor+div}else{if(div<0){max_sub=maximo+(div)}}$.each(tempo,function(b,c){if(tempo.hasOwnProperty(b)){run_time.push(b);if(menor==c&&menor_sub>0&&min_replace==false){min_replace=true;$("#msn_0"+b).html(menor_sub+":00")}else{if(maximo==c&&max_sub>0&&max_replace==false){max_replace=true;$("#msn_0"+b).html(max_sub+":00")}else{$("#msn_0"+b).html(c+":00")}}}});cronometro();startCountdown()});$("#back").click(function(){$("#msn_alert").show()});$("#yes").click(function(){location.reload()});$("#not").click(function(){$("#msn_alert").hide()});$("#pause").click(function(){if(pause==false){pause=true;$("#pause_action").removeClass();$("#pause_action").addClass("glyphicon glyphicon glyphicon glyphicon-play");$("#pause_action").html("Continuar");$("#pause").addClass("btn-danger")}else{pause=false;$("#pause_action").removeClass();$("#pause_action").addClass("glyphicon glyphicon glyphicon-pause");$("#pause_action").html("Pause");$("#pause").removeClass("btn-danger")}});</script>
+<script src=https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js></script>
+<script src=dist/js/bootstrap.min.js></script>
+<script src=assets/js/ie10-viewport-bug-workaround.js></script>
+</body>
+</html>
